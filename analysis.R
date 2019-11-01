@@ -37,16 +37,19 @@ calculateAutoCorrelation <- function(avg_temperatures) {
 }
 
 
-# main analysis
+# objects
 temperatures <- nottem %>% 
-  tidyNottem() %>% 
+  tidyNottem %>% 
   addCelsiusColumn
 
 avg_temperatures_by_year <- temperatures %>% 
-  summariseAvgTemperatureByYear()
+  summariseAvgTemperatureByYear
 
+auto_correlation_coefficient <- avg_temperatures_by_year %>% 
+  calculateAutoCorrelation
+
+# plots
 plotAvgTemperaturesByYear(avg_temperatures_by_year)
-calculateAutoCorrelation(avg_temperatures_by_year)
 
 ggsave(filename = "avg_temperatures_by_year.png")
 
